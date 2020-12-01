@@ -1,6 +1,5 @@
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { IPet } from './models/pet.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,17 +8,25 @@ export class PetsFactoryService {
 
   private apiUrl: string;
 
-  constructor(
-    private http: HttpClient
-  ) {
-    this.apiUrl = 'https://petstore.swagger.io/v2/pet';
+  constructor() {
+    this.apiUrl = 'https://petstore.swagger.io/v2/';
   }
 
-  addPet(pet): Observable<any>{
-    let params = JSON.stringify(pet);
-    let headers = new HttpHeaders({
-      'Content-Type' : 'application/json'
+  addPet(pet: IPet): Promise<IPet>{
+    return new Promise ((resolve, reject) => {
+      fetch(this.apiUrl + 'pet', {
+        method: 'POST',
+        body: JSON.stringify(pet),
+        headers: {
+          'Content-Type' : 'application/json'
+        }
+      })
+      .then((response) => {
+        resolve(pet);
+      })
+      .catch((error) => {
+        reject('error');
+      });
     });
-    return this.http.post(this.apiUrl, params, {headers: headers});
   }
 }

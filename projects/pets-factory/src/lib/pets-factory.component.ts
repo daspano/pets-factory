@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PetsFactoryService } from './pets-factory.service';
 import { IPet } from './models/pet.model';
-import { stringify } from 'querystring';
 
 @Component({
   selector: 'lib-pets-factory',
@@ -30,9 +29,8 @@ export class PetsFactoryComponent implements OnInit {
     this.pet.id = new Date().getTime();
     this.pet.name = this.name;
     this.pet.status = this.status;
-    this.petsFactoryService.addPet(this.pet).subscribe(
-      res => this.pet = res.pet
-    );
+    this.petsFactoryService.addPet(this.pet)
+      .then((ok) => alert('New Pet Added Successfully!!'))
+      .catch((ko) => alert('Error Adding New Pet!!'));
   }
-
 }

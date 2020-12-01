@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PetsFactoryComponent } from './pets-factory.component';
-import { HttpClientModule } from '@angular/common/http';
-
-
-
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [PetsFactoryComponent],
   imports: [
-    HttpClientModule
+    CommonModule
   ],
   exports: [PetsFactoryComponent]
 })
